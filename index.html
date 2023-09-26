@@ -73,7 +73,7 @@
     // ❗ Debug properly using the Console
 
     // 👉 CHALLENGE 1
-    function profileActivation(profile, reason ) {
+    function profileActivation(profile, reason) {
       // 🧠 profileActivation takes two arguments, profile and reason, which are an object and a string respectively
       //  The reason arg is only used -and therefore required- to deactivate profiles, not to activate them
       //  The profile arg has an `active` property holding a Boolean value
@@ -85,37 +85,34 @@
       //    * If the profile is active but it has a `reason` prop, return the string "confirm status manually"
       //    * If the profile is **missing** an `active` prop, return the string "impossible to ascertain status"
       // 🌟 HINT: to confirm the existence of a prop, check that its value is not undefined
-      if (profile.hasOwnProperty('active')) {
+      if (typeof profile.active !== 'undefined') {
     // Check if the profile is active
-    if (profile.active) {
-      // Check if the 'reason' property exists in the profile object
-      if (profile.hasOwnProperty('reason')) {
-        // If 'reason' exists and the profile is active, return "confirm status manually"
+    if (profile.active === true) {
+      // If the profile is active but has a 'reason' prop, return "confirm status manually"
+      if (typeof profile.reason !== 'undefined') {
         return "confirm status manually";
       } else {
-        // If 'reason' is missing, deactivate the profile and set the 'reason' property
+        // Deactivate the profile and set the 'reason' prop
         profile.active = false;
         profile.reason = reason;
-        return profile;
       }
     } else {
-      // Check if 'reason' exists and is not undefined
-      if (!profile.hasOwnProperty('reason') || profile.reason === undefined) {
-        // If 'reason' is missing or undefined, activate the profile and delete the 'reason' property
+      // If the profile is inactive but the 'reason' prop is missing, return "confirm status manually"
+      if (typeof profile.reason === 'undefined') {
+        return "confirm status manually";
+      } else {
+        // Activate the profile and delete the 'reason' prop
         delete profile.reason;
         profile.active = true;
-        return profile;
-      } else {
-        // If 'reason' exists and is not undefined when the profile is inactive, return "confirm status manually"
-        return "confirm status manually";
       }
     }
+    // Return the updated profile object
+    return profile;
   } else {
     // If the 'active' property is missing, return "impossible to ascertain status"
     return "impossible to ascertain status";
   }
-  
-    }
+     }
     
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
